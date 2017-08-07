@@ -29,7 +29,15 @@
 				<div class="box-title">Sheet View</div>
 			</div>
 
-			<div class="box-body"><img src="{{$layoutImg}}"></div>
+			<div class="box-body">
+				<div id="previewContainer">
+					@if(isset($layoutImg))
+						<img src="{{$layoutImg}}">
+					@else
+						<h2>Please choose options to generate imposition</h2>
+					@endif
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -60,6 +68,14 @@
 								<option value="standardSize">Standard Size</option>
 								<option value="userDefined">User Defined</option>
 							</select>
+							<select class="form-control start-hidden" id="standardSize">
+								@foreach($sizes as $size)
+									<option value="{{$size->id}}">{{$size->name}}</option>
+								@endforeach
+							</select>
+							<input type="number" id="dimX" placeholder="width (mm)" step="1" class="start-hidden">
+							<input type="number" id="dimY" placeholder="height (mm)" step="1" class="start-hidden">
+							<input type="hidden" name="finishXY" id="finishXY">
 						</div>
 					</div>
 					<div class="form-group">
@@ -152,4 +168,86 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('footer_scripts')
+<script type="text/javascript">
+$(document).ready(function(){
+	// Show standard sizes
+	$("#finishSize").change(function(){
+	    if (this.value == "standardSize")
+	    {
+	    	$('#standardSize').show();
+	    	$('#finishXY').val('['+$("#standardSize").val()+',0,0]');
+		    update_sheet_view();
+	    }
+	    else
+	    {
+	    	$('#standardSize').hide();
+	    }
+
+	    if (this.value == "userDefined")
+	    {
+	    	$('#dimX').show();
+	    	$('#dimY').show();
+
+	    	$('#finishXY').val('[0,'+$("#dimX").val()+','+$("#dimY").val()+']');
+	    }
+	    else
+	    {
+	    	$('#dimX').hide();
+	    	$('#dimY').hide();
+	    }
+	});
+
+	//Update finish size values
+	$("#standardSize").change(function(){
+	    $('#finishXY').val('['+this.value+',0,0]');
+	    update_sheet_view();
+	});
+	$("#dimX").change(function(){
+		$('#finishXY').val('[0,'+$("#dimX").val()+','+$("#dimY").val()+']');
+		if($('#dimX').val() != 0 && $('#dimX').val() != '' && $('#dimY').val() != 0 && $('#dimY').val() != '')
+		{
+			update_sheet_view();
+		}
+	});
+	$("#dimY").change(function(){
+		$('#finishXY').val('[0,'+$("#dimX").val()+','+$("#dimY").val()+']');
+		if($('#dimX').val() != 0 && $('#dimX').val() != '' && $('#dimY').val() != 0 && $('#dimY').val() != '')
+		{
+			update_sheet_view();
+		}
+	});
+
+	function update_sheet_view() {
+		var url = "{{url('/admin/impose/updateSheetView')}}";
+
+		$.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+
+        var formData = {
+            finishXY:JSON.parse($('#finishXY').val()),
+        }
+        // console.log(formData);
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                // console.log(data.encoded);
+                $('#previewContainer').html("<img src='"+data.encoded+"' alt='Sheet view'>");
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+	};
+});
+</script>
 @endsection

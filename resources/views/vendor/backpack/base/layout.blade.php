@@ -29,6 +29,8 @@
 
     <!-- BackPack Base CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/backpack/backpack.base.css') }}">
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+
 
     @yield('after_styles')
 
@@ -133,8 +135,12 @@
     </script>
 
     @include('backpack::inc.alerts')
-
+    
+    @yield('footer_scripts')
+    
     @yield('after_scripts')
+
+    
 
     <!-- JavaScripts -->
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}

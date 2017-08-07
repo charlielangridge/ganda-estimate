@@ -26,6 +26,7 @@ Route::group([
     ], function() {
 		CRUD::resource('size', 'SizeCrudController');
 		Route::get('impose', 'ImposeController@home');
+		Route::post('impose/updateSheetView', 'ImposeController@updateSheetView');
 });
 
 

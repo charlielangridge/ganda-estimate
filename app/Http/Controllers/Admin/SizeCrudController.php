@@ -35,6 +35,33 @@ class SizeCrudController extends CrudController
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
+        $this->crud->addField([ // Text
+            'name' => 'name',
+            'label' => "Name",
+            'type' => 'text',
+            // optional
+            //'prefix' => '',
+            //'suffix' => ''
+        ]);
+
+        $this->crud->addField([ // Text
+            'name' => 'dimensionX',
+            'label' => "Width",
+            'type' => 'number',
+            // optionals
+            'attributes' => ["step" => "1"], // allow decimals
+            // 'prefix' => "$",
+            'suffix' => "mm",
+        ]);
+        $this->crud->addField([ // Text
+            'name' => 'dimensionY',
+            'label' => "Height",
+            'type' => 'number',
+            // optionals
+            'attributes' => ["step" => "1"], // allow decimals
+            // 'prefix' => "$",
+            'suffix' => "mm",
+        ]);
 
         // ------ CRUD COLUMNS
         // $this->crud->addColumn(); // add a single column, at the end of the stack
@@ -100,9 +127,14 @@ class SizeCrudController extends CrudController
     }
 
     public function store(StoreRequest $request)
-    {
+    {   
+        // Sort dimensions
+        $xy = $this->whSwap($request);
+        $request->request->set('dimensionX', $xy[0]);
+        $request->request->set('dimensionY', $xy[1]);
+
         // your additional operations before save here
-        $redirect_location = parent::storeCrud();
+        $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
@@ -110,10 +142,22 @@ class SizeCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
+        // Sort dimensions
+        $xy = $this->whSwap($request);
+        $request->request->set('dimensionX', $xy[0]);
+        $request->request->set('dimensionY', $xy[1]);
+
         // your additional operations before save here
-        $redirect_location = parent::updateCrud();
+        $redirect_location = parent::updateCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+    public function whSwap($request)
+    {
+        $xy = [$request->dimensionX, $request->dimensionY];
+        sort($xy);
+        return $xy;
     }
 }
