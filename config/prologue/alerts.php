@@ -22,7 +22,6 @@ return [
         'warning',
         'error',
         'success',
-        'danger',
     ],
 
     /*

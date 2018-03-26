@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{{ config('backpack.base.project_name') }} Error 500</title>
+    <title>{{ config('backpack.base.project_name') }} Error 503</title>
 
     <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 
@@ -43,7 +43,7 @@
   <body>
     <div class="container">
       <div class="content">
-        <div class="title">500</div>
+        <div class="title">503</div>
         <div class="quote">It's not you, it's me.</div>
         <div class="explanation">
           <br>

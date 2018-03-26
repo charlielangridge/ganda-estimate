@@ -10,23 +10,31 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-Route::get('/home', 'HomeController@index');
+Route::resource('guillotine', 'GuillotineController');
+Route::resource('packaging', 'PackagingController');
+Route::resource('job_types', 'Job_typesController');
+Route::resource('size', 'SizeController');
+Route::resource('print_method', 'Print_methodController');
+Route::resource('press', 'PressController');
+Route::resource('stock', 'StockController');
+Route::resource('supplier', 'SupplierController');
+Route::resource('impose_type', 'Impose_typeController');
+Route::resource('imposition', 'ImpositionController');
+Route::resource('quote', 'QuoteController');
 
+// Admin Routes
 Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['admin','role:adminAccess'],
+    'middleware' => ['admin'],
     'namespace' => 'Admin'
-    ], function() {
-		CRUD::resource('size', 'SizeCrudController');
-		Route::get('impose', 'ImposeController@home');
-		Route::post('impose/updateSheetView', 'ImposeController@updateSheetView');
+], function() {
+    // your CRUD resources and other admin routes here
+    CRUD::resource('guillotine', 'GuillotineCrudController');
+    CRUD::resource('impose_type', 'Impose_typeCrudController');
 });
-
-
