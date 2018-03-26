@@ -2,19 +2,60 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Size extends Model 
+class Size extends Model
 {
-
-    protected $table = 'sizes';
-    public $timestamps = true;
-
+    use CrudTrait;
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'dim_x', 'dim_y');
-    protected $visible = array('name', 'dim_x', 'dim_y');
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL VARIABLES
+    |--------------------------------------------------------------------------
+    */
 
+    protected $table = 'sizes';
+    protected $primaryKey = 'id';
+    // public $timestamps = true;
+    // protected $guarded = ['id'];
+    protected $fillable = [
+        'name', 
+        'dim_x', 
+        'dim_y'
+    ];
+    // protected $hidden = [];
+    // protected $dates = ['deleted_at'];
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESORS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
 }

@@ -11,12 +11,12 @@ class CreatePressesTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->integer('print_method_id')->unsigned();
-			$table->integer('click_black');
-			$table->integer('click_colour');
-			$table->integer('weight_min');
-			$table->integer('weight_max');
-			$table->integer('grip_top');
-			$table->integer('grip_bottom');
+			$table->integer('click_black')->unsigned();
+			$table->integer('click_colour')->unsigned();
+			$table->integer('weight_min')->unsigned();
+			$table->integer('weight_max')->unsigned();
+			$table->integer('grip_top')->unsigned();
+			$table->integer('grip_bottom')->unsigned();
 			$table->integer('size_min_id')->unsigned();
 			$table->integer('size_max_id')->unsigned();
 			$table->timestamps();

@@ -7,4 +7,12 @@
 <li class="header">Estimate</li>
 <li><a href="{{ backpack_url('guillotine') }}"><i class="fa fa-cog"></i> <span>Guillotines</span></a></li>
 <li><a href="{{ backpack_url('impose_type') }}"><i class="fa fa-cog"></i> <span>Impose Types</span></a></li>
+<li><a href="{{ backpack_url('imposition') }}"><i class="fa fa-cog"></i> <span>Impositions</span></a></li>
+<li><a href="{{ backpack_url('job_type') }}"><i class="fa fa-cog"></i> <span>Job Types</span></a></li>
+
+
+<li><a href="{{ backpack_url('print_method') }}"><i class="fa fa-cog"></i> <span>Print Methods</span></a></li>
+<li><a href="{{ backpack_url('press') }}"><i class="fa fa-cog"></i> <span>Presses</span></a></li>
+
+<li><a href="{{ backpack_url('size') }}"><i class="fa fa-cog"></i> <span>Sizes</span></a></li>
 

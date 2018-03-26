@@ -37,4 +37,13 @@ Route::group([
     // your CRUD resources and other admin routes here
     CRUD::resource('guillotine', 'GuillotineCrudController');
     CRUD::resource('impose_type', 'Impose_typeCrudController');
+    CRUD::resource('imposition', 'ImpositionCrudController');
+    CRUD::resource('job_type', 'Job_typeCrudController');
+
+
+    CRUD::resource('print_method', 'Print_methodCrudController');
+    CRUD::resource('press', 'PressCrudController');
+
+    CRUD::resource('size', 'SizeCrudController');
+
 });

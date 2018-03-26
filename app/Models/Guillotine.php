@@ -21,7 +21,13 @@ class Guillotine extends Model
     // protected $primaryKey = 'id';
     public $timestamps = true;
     // protected $guarded = ['id'];
-    protected $fillable = ['name', 'max_width', 'max_depth', 'min_depth', 'max_stack_height'];
+    protected $fillable = [
+        'name', 
+        'max_width', 
+        'max_depth', 
+        'min_depth', 
+        'max_stack_height'
+    ];
     protected $dates = ['deleted_at'];
     // protected $hidden = [];
     // protected $dates = [];
